@@ -8,10 +8,12 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "backend": "json-server -w db.json"
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
@@ -21,7 +23,10 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "@types/lodash": "^4.14.85",
+    "bulma": "^0.6.1",
     "core-js": "^2.4.1",
+    "lodash": "^4.17.4",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

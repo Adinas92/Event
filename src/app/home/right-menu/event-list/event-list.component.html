@@ -1,0 +1,13 @@
+<div class="columns is-multiline">
+  <div class="column is-12" *ngFor="let event of events">
+    <div class="column is-4"><h2 style="color:white">{{event.name}}</h2></div>
+    <div class="column is-8">{{event.date}}</div>
+  </div>
+  
+  <!-- <div class="column is-4" >
+    <tm-poster [show]="show">
+      <tm-bookmark-add [item]="show"></tm-bookmark-add>
+      <tm-bookmark-remove [item]="show"></tm-bookmark-remove>
+    </tm-poster>
+  </div> -->
+</div>
