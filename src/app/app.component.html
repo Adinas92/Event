@@ -4,10 +4,28 @@
           <div class="navbar-item">
             <img src="" width="120" height="28" alt="Event Map Logo">
           </div>
-          <div class="navbar-item">       
-              <input type="search" name="query" class="input" placeholder="Search..."/>
-          </div>
-          <button class="button navbar-burger is-dark " (click)="activeMenu()">
+          <div class="navbar-item"> 
+              <form class="field has-addons" [formGroup]="form">
+              
+                <div class="container-search ">
+                    <div emClickOutsideSearchBox (clickOutsideSearchBox)="hideBoxMainSearch()" >
+                  <input type="search" class="main-search width-searcher" (click)="toggleDropDown()" placeholder="Search..." formControlName="query" name="query" />
+                  <button class="icon" (click)="search(form.value.query)">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  
+                    <div *ngIf='showDropDown' class="state-container-dropdown">
+                    <div *ngFor="let event of events">
+                      <div class="founded-event">
+                        <p>{{event.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </form>
+              </div>
+              <button class="button navbar-burger is-dark " (click)="activeMenu()">
             <span></span>
             <span></span>
             <span></span>

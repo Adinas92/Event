@@ -1,3 +1,86 @@
+$width-search: 300px;
+$height-search: 40px;
+$change-focus-icon-status: "false";
+$focus-search-color: white;
+@if $change-focus-icon-status == "false"{
+
+}
+.container-search{
+position:relative;
+width: 300px;
+vertical-align: middle;
+white-space: nowrap;
+}
+.main-search {
+    width: $width-search;
+    height: $height-search;
+    background: white;
+    border: none;
+    font-size: 12pt;
+    float: left;
+    color: #bcc8ff;
+    padding-left: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+   
+     
+      -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+}
+.container-search button.icon{
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+   
+    border: none;
+    background: $focus-search-color;
+    height: $height-search;
+    width: 40px;
+    color: #4f5b66;
+    opacity: 0;
+    font-size: 12pt;
+    outline: none;
+    opacity: 1;
+    margin-left: -40px;
+    -webkit-transition: all .55s ease;
+    -moz-transition: all .55s ease;
+    -ms-transition: all .55s ease;
+    -o-transition: all .55s ease;
+    transition: all .55s ease;
+  }
+  .main-search:focus{
+    outline: 0;
+  }
+ 
+  .container-search:hover button.icon:hover{
+    background: #638dff ;
+    color: white;
+    cursor: pointer;
+  }
+.main-search::-webkit-input-placeholder {
+    color: #65737e;
+ }
+ .main-search:-moz-placeholder { /* Firefox 18- */
+    color: #65737e;  
+ }
+  
+ .main-search::-moz-placeholder {  /* Firefox 19+ */
+    color: #65737e;  
+ }
+  
+ .main-search:-ms-input-placeholder {  
+    color: #65737e;  
+}
+.main-search .founded-event {
+ color:black;
+}
 .navbar{
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.75);
@@ -20,4 +103,14 @@
     height: 5vh;
     -webkit-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px -1px 4px 0px rgba(0,0,0,0.75);
+}
+.state-container-dropdown {
+    position: absolute;
+    z-index: 10;
+    width: $width-search;
+    height: 300px;
+    max-height: 300px;
+    background: #F6F6F6;
+    margin-top: 0px;
+
 } 

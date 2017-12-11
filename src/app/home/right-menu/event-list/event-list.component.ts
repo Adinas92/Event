@@ -13,12 +13,16 @@ export class EventListComponent implements OnInit {
   events: Event[] = [];
   constructor(private el: EventListService) { 
     this.getEvents();
-    console.log(this.events);
+
   }
 
   ngOnInit() {
   }
   getEvents(): void {
     this.events = this.el.showAllEvents();
+  }
+  // przez asynchroniczność dziala to w ten sposob ze zapytanie do bazy troche trwa dlatego trzeba to wywolac jeszcze
+  getAllEvents() {
+    return this.el.showAllEvents();
   }
 }

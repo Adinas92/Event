@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Event } from './event.models';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EventListService {
@@ -19,4 +20,13 @@ export class EventListService {
   showAllEvents(): Event[] {
     return [...this.events];
   }
+
+  // tworzymy metode ktora będzie strumieniem (czyli bedzie mozna z niej subskrybowac)
+  searchEvent(query: string): Observable<Event[]> {
+    const url = `${this.baseUrl}/search/event?q=${query}`;
+    return this.http.get<Event[]>(url)
+    .map(response => response as Event[]);
+  }
+
+  
 }
