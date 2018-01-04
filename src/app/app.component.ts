@@ -26,8 +26,8 @@ export class AppComponent {
   title = 'tm';
   activeMenuOnSmallDevice = '';
   menu: MenuItem[] = [
-    {path: '/', label: 'Events', exact: true},
-    {path: '/add', label: 'Add Event'},
+    {path: '', label: 'Home', exact: true},
+    {path: '/mylist', label: 'My Events'},
     {path: '/contact', label: 'Contact'},
   ];
   query = '';

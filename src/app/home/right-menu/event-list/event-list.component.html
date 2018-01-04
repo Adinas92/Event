@@ -1,13 +1,17 @@
-<div class="columns is-multiline">
+<div class="search-results "
+infinite-scroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="500"
+            (scrolled)="onScroll()"
+            [scrollWindow]="false">
+<div class="columns is-multiline padding-menu">
   <div class="column is-12" *ngFor="let event of getAllEvents()">
     <div class="column is-4"><h2 style="color:white">{{event.name}}</h2></div>
     <div class="column is-8">{{event.date}}</div>
   </div>
-  
-  <!-- <div class="column is-4" >
-    <tm-poster [show]="show">
-      <tm-bookmark-add [item]="show"></tm-bookmark-add>
-      <tm-bookmark-remove [item]="show"></tm-bookmark-remove>
-    </tm-poster>
-  </div> -->
 </div>
+<p *ngFor="let i of array">
+  {{ i }}
+</p>
+
+        </div>

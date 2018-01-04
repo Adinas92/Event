@@ -1,2 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bulma";
+html,
+body {
+  overflow-y: hidden;
+}
+
+.customClass {
+    
+}
+
+.customClass.image-upload {
+    border: 0 !important;
+    }
+    .customClass .file-upload {
+    background: none !important;
+    }
+    .customClass .drag-box-message {
+    display: none !important;
+    }
+    .customClass .upload-button {
+    float: none !important;
+    display: block !important;
+    text-align: center !important;
+    }
+    .customClass .img-ul-container {
+        background: none !important;
+        float: none !important;
+    }
+    .customClass .img-ul-button {
+        font-size: 10px !important;
+        font-weight: 500 !important;
+        padding: 8px !important;
+        text-transform: none !important;
+        background-color: rgb(187, 187, 187) !important;
+        border-radius: 3px !important;
+    }
+    .customClass .img-ul-button:active span{
+        display: inline-block !important;
+    }
+    .customClass .img-ul-clear {
+        display: none !important;
+    }
+
+
+    .customClass .img-ul-button:before {
+        font-family: FontAwesome;
+        top:0;
+        left:-5px;
+        padding-right:10px;
+        content: "\f093"; 
+    }

@@ -1,0 +1,73 @@
+<div class="columns is-multiline padding-menu">
+    <div class="column is-12 notification is-warning" *ngIf="saveInfoShow">
+        <button class="delete"></button>
+        Wydarzenie czeka na zatwierdzenie przez moderatora.
+      </div>
+  <div class="column is-12 style-for-box" [@aborNewEventAnimation]='stateNewEvent'>
+    <h3 style="color:white">Dodaj szczegółowe informacje</h3>
+    <hr>
+    
+    <div class="columns">
+        
+      <div class="column is-5" style="padding-top:0px; margin-top:-10px;">
+       <image-upload
+    [max]="1" [url]="'http://localhost:3000/events'" [headers]="{Authorization: 'MyToken'}" [buttonCaption]="'Wybierz zdjęcie'"
+   [dropBoxMessage]="''" [extensions]="['jpg','png','gif']" clearButtonCaption="Wyczyść" [class]="'customClass'" >
+   </image-upload>
+        <!-- <div class="file is-small">
+          <label class="file-label">
+            <input class="file-input" type="file" name="resume">
+            <span class="file-cta">
+              <span class="file-icon"></span>
+                
+              </span>
+
+
+          </label>
+        </div> -->
+      </div>
+      <div class="column is-7">
+        <div class="columns">
+        <label class="column is-4 file-label label-style">Rodzaj eventu:</label>
+        <input class="column is-8 input is-small input-width" type="text">
+        </div>
+        <div class="columns">
+        <label class="column is-4 file-label label-style">Nazwa eventu:</label>
+        <input class="column is-8 input is-small input-width" type="text">
+      </div>
+      </div>
+      
+    </div>
+    <div class="columns">
+        <div class="column is-6">
+            <div class="columns">
+            <label class="column is-4 file-label label-style">Data początkowa:</label>
+            <owl-date-time [(ngModel)]="event.startingTime" (onSelect)="checkStartDateIsLessThenEndDate()" class="column is-8 owl-dateTime-input is-small"  placeHolder="Not Set" [locale]="es"></owl-date-time>
+            </div>
+            </div>
+            <div class="column is-6">
+            <div class="columns">
+            <label class="column is-4 file-label label-style">Data końcowa:</label>
+            <owl-date-time [(ngModel)]="event.endingTime"  class="column is-8 owl-dateTime-dialog is-small" [min]="event.startingTime" placeHolder="Not Set" [locale]="es"></owl-date-time>
+            </div>
+          </div>
+      </div>
+    <hr>
+    <div class="column is-12">
+      <a class="button is-success is-small is-right" (click)="saveNewEvent()">
+        Dodaj
+      </a>
+      <a class="button is-danger is-small is-right" (click)="abortAddingNewEvent()">
+        Anuluj
+      </a>
+    </div>
+  </div>
+  
+  
+
+  <div class="column is-12" *ngFor="let event of getAllEvents()">
+    <div class="column is-4"><h2 style="color:white">{{event.name}}</h2></div>
+    <div class="column is-8">{{event.date}}</div>
+  </div>
+
+</div>

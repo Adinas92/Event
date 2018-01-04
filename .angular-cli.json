@@ -9,7 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "globe-icon.png"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -20,7 +20,10 @@
       "prefix": "em",
       "styles": [
         "styles.scss",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/snazzy-info-window/dist/snazzy-info-window.css",
+        "../node_modules/angular-calendar/css/angular-calendar.css",
+        "../node_modules/ng-pick-datetime/assets/style/picker.min.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
