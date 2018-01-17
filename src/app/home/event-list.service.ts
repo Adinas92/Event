@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Event, Coords, marker } from './event.models';
 import 'rxjs/add/operator/map';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class EventListService {
@@ -13,17 +13,20 @@ export class EventListService {
   private events: Event[] = [];
   private newEventInEdition: boolean = false;
   private myListMarkers: marker[] = [];
-  eventChanged = new Subject<any>();
+  private eventChanged = new BehaviorSubject<any>([]);
+  private eventsNumberToGet: number;
 
   constructor(private http: HttpClient) { 
-    this.http.get<Event[]>(this.baseUrl)
-    .subscribe(events => { 
-      this.events = events
-      this.eventChanged.next(this.events.slice());
-    }
-    );
-     
+    this.refetch();
   }
+  private refetch(): void {
+    this.http.get<Event[]>(this.baseUrl)
+      .subscribe(events => {
+        this.events = events;
+         this.eventChanged.next(events);
+      });
+  }
+
   addEvent(event: Event) {
     this.events.push(event);
     this.eventChanged.next(this.events.slice());
@@ -32,9 +35,16 @@ export class EventListService {
   getEvents(): Observable<any> {
     return this.eventChanged.asObservable();
   }
- 
-  showAllEvents(): Event[] {   
-    return [...this.events];
+
+
+  showEvents(eventsNumberToGet: number): void {
+    this.http.get<Event[]>(this.baseUrl)
+      .subscribe(events => {
+        events.forEach(event => {
+          this.events.push(event);
+        })
+         this.eventChanged.next(this.events.slice());
+      });   
   }
 
   // tworzymy metode ktora będzie strumieniem (czyli bedzie mozna z niej subskrybowac)
@@ -70,7 +80,4 @@ export class EventListService {
   setNewEventInEdition(isEdited) {
     this.newEventInEdition = isEdited;
   }
-  // checkWindowForNewEventIsOpen(isOpen) {
-  //   this.canBeOpenNewInfoEvent = isOpen;
-  // }
 }

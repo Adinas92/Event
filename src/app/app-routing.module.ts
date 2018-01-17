@@ -12,8 +12,8 @@ const routes: Routes = [
     path: '', component: HomeComponent,
     children: [
       { path: '', component: RightMenuComponent, children: [
-      { path: '', component: EventListComponent },
-      { path: 'mylist', component: UserEventListComponent }
+        { path: '', component: EventListComponent },
+        { path: 'mylist', component: UserEventListComponent }
     ]}]
   },
   { path: 'contact', component: ContactComponent },

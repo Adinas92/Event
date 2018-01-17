@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { EventListService } from '../../event-list.service';
 import { Coords, marker, Event } from '../../event.models';
 import { aborNewEventAnimation } from '../../../shared/animations/event-list-animations';
 import { Subject } from 'rxjs/Subject';
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -12,20 +13,20 @@ import { Subject } from 'rxjs/Subject';
   animations: [aborNewEventAnimation]
 })
 export class UserEventListComponent implements OnInit {
-
+  @Input() sumListEvents: number;
   private newEventCoords: Coords;
-  // private events: Event[] = [];
-  private event: Event = {
-    name: '',
-    endingTime: new Date(),
-    eventType: '',
-    startingTime: new Date()
-  };
-  private marker: marker;
+  private events: Event[] = [];
   private stateNewEvent: string = "newEventBoxActive";
   private newEventBoxState: boolean = false;
   private saveInfoShow: boolean = false;
  // refresh: Subject<any> = new Subject();
+ private event: Event = {
+  name: '',
+  endingTime: new Date(),
+  eventType: '',
+  startingTime: new Date()
+};
+
   private myEventsMarker: marker[] = [
 	  {
 		  lat: 52.200049,
@@ -37,11 +38,29 @@ export class UserEventListComponent implements OnInit {
   ];
 
   constructor(private dataService: EventListService) { 
-    // this.getEvents();
+
   }
 
   ngOnInit() {
+    this.dataService.getEvents()
+    .subscribe(
+    (events) => {
+      this.events = events;      
+    });
+    
+  }
     //this.getNewEventLocation();
+    // let loadSubscription = this.sumListEvents.subscribe(
+    //   value => {
+    //     this.events = this.dataService.showEvents(value)
+    //   }
+    // )
+  
+  ngOnChanges(changes: SimpleChanges) {
+    
+    if (changes.sumListEvents.previousValue) {
+      this.dataService.showEvents(this.sumListEvents)
+    }
   }
   ngDoCheck() {
     this.newEventBoxState = this.dataService.getNewEventInEdition();
@@ -66,14 +85,8 @@ export class UserEventListComponent implements OnInit {
   //     this.myEventsMarker.push(this.marker);
   //   }
   // }
-  // ta metoda chyba nie jest potrzebna 
-  // getEvents(): void {
-  //   this.events = this.dataService.showAllEvents();
-  // }
-  // przez asynchroniczność dziala to w ten sposob ze zapytanie do bazy troche trwa dlatego trzeba to wywolac jeszcze
- public getAllEvents() {
-    return this.dataService.showAllEvents();
-  }
+
+
   private abortAddingNewEvent()
   {
     this.dataService.popNewMarker();
@@ -88,7 +101,9 @@ export class UserEventListComponent implements OnInit {
   }
   private saveNewEvent()
   {
+    // metoda dodajaca event do bazy jednak czeka on na moderacje moderatora i dopiero wtedy mozna wywolac metode addEvent()
     // this.dataService.saveNewEvent(this.testEvent);
+    this.dataService.addEvent(this.testEvent);
     this.dataService.setNewEventInEdition(false);
     this.saveInfoShow = true;
   }

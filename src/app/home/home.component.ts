@@ -51,14 +51,14 @@ export class HomeComponent implements OnInit {
   
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
+
   }
   modalData: {
     action: string;
     event: CalendarEvent;
   };
   ngOnInit() {
-    this.el.eventChanged
+    this.el.getEvents()
       .subscribe(
       (events) => {
         this.events = events;

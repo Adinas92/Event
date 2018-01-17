@@ -1,3 +1,12 @@
+
+.panel-list-menu {
+    background-color: #bdbaba;
+    height: 38px;
+    padding-left: 10px;
+    border-left-color: beige;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
 .list-container {
     border-left-color: beige;
     border-left-width: 1px;
@@ -5,7 +14,7 @@
     background-color: #9b9b9b;
 }
 .list-container{
-    height: 100vh;
+    height: 86vh;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 500px;

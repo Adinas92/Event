@@ -1,4 +1,14 @@
-<button class="fa fa-calendar" (click)="showCalendarClick()"></button>
-<div class="list-container">
-        <router-outlet></router-outlet>
+<div class="panel-list-menu"><button class="fa fa-calendar button is-link is-focused" (click)="showCalendarClick()"></button></div>
+<div class="list-container"
+             
+                infiniteScroll
+               [infiniteScrollDistance]="scrollDistance"
+               [infiniteScrollUpDistance]="scrollUpDistance"
+               [infiniteScrollThrottle]="throttle"
+               (scrolled)="onScrollDown()"
+               [fromRoot]="true"
+               [scrollWindow]="false">
+               <em-event-list *ngIf="showWorldList" [sumListEvents]="sumListEvents"></em-event-list>
+               <em-user-event-list *ngIf="showMyList" [sumListEvents]="sumListEvents"></em-user-event-list>    
+       <p *ngFor="let i of array">{{i}}</p>
 </div>

@@ -1,17 +1,9 @@
-<div class="search-results "
-infinite-scroll
-            [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="500"
-            (scrolled)="onScroll()"
-            [scrollWindow]="false">
+lalalala
 <div class="columns is-multiline padding-menu">
-  <div class="column is-12" *ngFor="let event of getAllEvents()">
+  <div class="column is-12" *ngFor="let event of events">
     <div class="column is-4"><h2 style="color:white">{{event.name}}</h2></div>
     <div class="column is-8">{{event.date}}</div>
   </div>
 </div>
-<p *ngFor="let i of array">
-  {{ i }}
-</p>
+  
 
-        </div>

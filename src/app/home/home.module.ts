@@ -36,7 +36,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     DateTimePickerModule,
     FormsModule,
     InfiniteScrollModule
-    
   ],
   declarations: [HomeComponent,  LeftMenuComponent, RightMenuComponent, CenterMenuComponent, EventMapComponent, EventListComponent, UserEventListComponent],
   providers: [EventListService]

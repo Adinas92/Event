@@ -11,19 +11,20 @@ import {HomeModule} from './home/home.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ClickOutsideSearchBoxDirective } from './shared/click-outside-search-box.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
     Page404Component,
-    ClickOutsideSearchBoxDirective,
-    
+    ClickOutsideSearchBoxDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HomeModule,
     ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

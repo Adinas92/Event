@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { EventListService } from '../../event-list.service';
 import { Event } from '../../event.models';
-import { InfiniteScroll } from 'angular2-infinite-scroll';
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'em-event-list',
@@ -10,24 +10,23 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 })
 export class EventListComponent implements OnInit {
 
- // private events: Event[] = [];
- 
-  constructor(private el: EventListService) { 
-   // this.getEvents();
+  @Input() sumListEvents: number;
 
+  private events: Event[] = [];
+ 
+  constructor(private dataService: EventListService) { 
   }
 
   ngOnInit() {
+    this.dataService.getEvents().subscribe(
+      (events) => {
+        this.events = events;
+      }
+    )};
+    ngOnChanges(changes: SimpleChanges) {
     
-  }
-  // getEvents(): void {
-  //   this.events = this.el.showAllEvents();
-  // }
-  // przez asynchroniczność dziala to w ten sposob ze zapytanie do bazy troche trwa dlatego trzeba to wywolac jeszcze
- public getAllEvents() {
-    return this.el.showAllEvents();
-  }
-  onScroll () {
-    console.log('scrolled!!')
-}
+      if (changes.sumListEvents.previousValue) {
+        this.dataService.showEvents(this.sumListEvents)
+      }
+    }
 }
