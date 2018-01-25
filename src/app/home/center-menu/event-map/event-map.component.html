@@ -6,9 +6,9 @@
             <button id="btnAddEvent" (click)="addNewEvent()">Dodaj</button>
         </ng-template>
     </agm-snazzy-info-window>
-    <div *ngIf="router.url === '/'">
-        <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [markerDraggable]="marker.draggable"
-            [label]="marker.label">
+    
+    <div *ngIf="router.url === '/'">        
+        <agm-marker *ngFor="let marker of events" [latitude]="marker.point.latitude" [longitude]="marker.point.longitude" [markerDraggable]="marker.point.draggable">
             <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
                 <ng-template>
                     My first Snazzy Info Window!
@@ -17,8 +17,15 @@
         </agm-marker>
     </div>
     <div *ngIf="router.url === '/mylist'">
-        <agm-marker *ngFor="let marker of myEventsMarkers" [latitude]="marker.lat" [longitude]="marker.lng" [markerDraggable]="marker.draggable"
-            [label]="marker.label">
+        <agm-marker [latitude]="newPoint.latitude" [longitude]="newPoint.longitude" [markerDraggable]="newPoint.draggable">
+            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+                <ng-template>
+                    My first Snazzy Info Window!
+                </ng-template>
+            </agm-snazzy-info-window>
+        </agm-marker>
+        <agm-marker *ngFor="let marker of myEvents" [latitude]="marker.point.latitude" [longitude]="marker.point.longitute" [markerDraggable]="marker.draggable"
+            >
             <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
                 <ng-template>
                     My first Snazzy Info Window!

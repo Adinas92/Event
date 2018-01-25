@@ -1,8 +1,9 @@
+import { EventE, PointE } from '../../event.models';
 import { Component, OnInit } from '@angular/core';
-import { marker } from '../../event.models';
 import { MouseEvent as AGMMouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 import { EventListService } from '../../event-list.service';
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 @Component({
@@ -12,14 +13,19 @@ import { EventListService } from '../../event-list.service';
 })
 export class EventMapComponent implements OnInit 
 {
-  private marker: marker;
   lat: number = 52.237049;
   lng: number = 21.017532;
    latNewMarker: number;
    lngNewMarker: number;
   windowForNewEvent = false;
   isNewEventInEdition = false;
-  private myEventsMarkers: marker[];
+  private events: EventE[] = [];
+  private myEvents: EventE[];
+  private newPoint: PointE = {
+    latitude: null,
+    longitude: null,
+    draggable: false
+  };
   style = [
     {
       "elementType": "geometry",
@@ -206,26 +212,25 @@ export class EventMapComponent implements OnInit
       ]
     }
   ];
-  markers: marker[] = [
-    {
-      lat: 52.220049,
-      lng: 21.016132,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 52.237049,
-      lng: 21.035532,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 52.237049,
-      lng: 21.007532,
-      label: 'C',
-      draggable: true
-    }
-  ];
+  // markers: PointE[] = [
+  //   {
+  //     latitude: 52.220049,
+  //     longitute: 21.016132,
+  //     draggable: true
+  //   },
+  //   {
+  //     latitude: 52.237049,
+  //     longitute: 21.035532,
+  //     draggable: false
+  //   },
+  //   {
+  //     latitude: 52.237049,
+  //     longitute: 21.007532,
+  //     draggable: true
+  //   }
+  // ];
+  constructor(private router: Router, private dataService: EventListService) {
+  }
 
   showPropertyAboutNewEvent($event: AGMMouseEvent) {
     if (this.isNewEventInEdition) {
@@ -235,26 +240,49 @@ export class EventMapComponent implements OnInit
       this.windowForNewEvent = true;
       this.latNewMarker = $event.coords.lat;
       this.lngNewMarker = $event.coords.lng;
+      // this.newPoint = { 
+      //   latitude: $event.coords.lat,
+      //   longitude: $event.coords.lng,
+      //   draggable: true
+      // }
     }
+    
   };
+  
 
 
   // przekazuje dodawanie do servisu poniewaz potem chce przekazac wartosc do innego komponentu ktory bedzie zapisywal wszystkie dane o event (przekazywal do serwera)
   addNewEvent() {   
     this.windowForNewEvent = false;
-    this.dataService.addNewEvent(this.latNewMarker, this.lngNewMarker);
+    this.dataService.addNewPoint(this.latNewMarker, this.lngNewMarker);
     this.dataService.setNewEventInEdition(true); // przekazanie info do servicu ze dodawanie kolejnego eventu jest zajęte
     if (this.router.url != "/mylist") {
       this.router.navigateByUrl('/mylist');
     }
   }
-  constructor(private router: Router, private dataService: EventListService) {
-  }
-  ngOnInit() {
 
+  ngOnInit() {
+    this.dataService.getEvents()
+    .filter(events => events && events.length > 0)
+    .subscribe(
+    (events) => {
+      this.events = events;       
+    });
+    this.dataService.getNewMarkerCoordinate().subscribe(
+      (newPoint) => {
+        this.newPoint = newPoint;
+        console.log(newPoint);
+        console.log(this.newPoint);
+      });
   }
+    ngOnChanges(changes: SimpleChanges) {
+    
+      if (changes.sumListEvents.previousValue) {
+        this.dataService.showEvents()
+      }
+    }
   ngDoCheck() {
-    this.myEventsMarkers = this.dataService.getListOfMyEventsMarkers();
+    // this.myEventsMarkers = this.dataService.getListOfMyEventsMarkers();
     this.isNewEventInEdition = this.dataService.getNewEventInEdition();
   }
   changeAddNextEventStatus($event) {

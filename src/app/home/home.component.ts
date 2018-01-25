@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarEventAction } from 'angular-calendar';
 import { EventListService } from './event-list.service';
-import { Event } from '../home/event.models';
+import { EventE } from '../home/event.models';
 import {
   startOfDay,
   endOfDay,
@@ -37,13 +37,14 @@ const colors: any = {
 export class HomeComponent implements OnInit {
 
   private isCalendarShowed: boolean = false;
-  private events: Event[] = [];
-  view: string = 'month';
-  viewDate: Date = new Date();
-  calendarEvents: CalendarEvent[] = [];
-  subscription: Subscription;
-  eventChanged = new Subject<any>();
+  private events: EventE[] = [];
+  private view: string = 'month';
+  private viewDate: Date = new Date();
+  private calendarEvents: CalendarEvent[] = [];
+  //public subscription: Subscription;
+  public eventChanged = new Subject<any>();
 
+  
   constructor(private el: EventListService) {
     
    }
@@ -65,16 +66,8 @@ export class HomeComponent implements OnInit {
         this.getInterestedEvents();
       });
   }
-  testEvent: Event = {
-    id: 6,
-    name: 'Sportowy',
-    endingTime: new Date(),
-    eventType: 'Sport',
-    startingTime: new Date(2017, 12, 12)
-  }
-  addEvent() {
-    this.el.addEvent(this.testEvent);  
-  }
+
+  
   private getInterestedEvents() {
     
     this.calendarEvents = [];
@@ -85,7 +78,7 @@ export class HomeComponent implements OnInit {
         title: eachEvent.name,
         color: colors.red
       }
-      console.log(this.calendarEvents);
+      //console.log(this.calendarEvents);
       this.calendarEvents.push(calendarEvent);
     })
     this.calendarEvents = this.calendarEvents.slice();

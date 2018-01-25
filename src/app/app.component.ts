@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectorRef, ApplicationRef  } from '@angular/c
 import { EventListService } from './home/event-list.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ElementRef } from '@angular/core/src/linker/element_ref';
-import { Event } from './home/event.models';
+import { EventE } from './home/event.models';
 import { NgZone } from '@angular/core/src/zone/ng_zone';
 import 'rxjs/add/observable/fromEvent';
 import {Observable} from 'rxjs/Observable';
@@ -32,8 +32,9 @@ export class AppComponent {
   ];
   query = '';
   form: FormGroup;
-  events: Event[] = [];
+  events: EventE[] = [];
   showDropDown = false;
+  private fullImagePath = 'https://i.imgur.com/61RrTG8.png';
 
   constructor(private el: EventListService, private fb: FormBuilder) {
    

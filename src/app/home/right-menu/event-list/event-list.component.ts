@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EventListService } from '../../event-list.service';
-import { Event } from '../../event.models';
+import { EventE } from '../../event.models';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
@@ -12,7 +12,7 @@ export class EventListComponent implements OnInit {
 
   @Input() sumListEvents: number;
 
-  private events: Event[] = [];
+  private events: EventE[] = [];
  
   constructor(private dataService: EventListService) { 
   }
@@ -21,12 +21,13 @@ export class EventListComponent implements OnInit {
     this.dataService.getEvents().subscribe(
       (events) => {
         this.events = events;
+        //console.log(events[0].name);
       }
     )};
     ngOnChanges(changes: SimpleChanges) {
     
       if (changes.sumListEvents.previousValue) {
-        this.dataService.showEvents(this.sumListEvents)
+        this.dataService.showEvents()
       }
     }
 }

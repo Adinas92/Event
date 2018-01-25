@@ -1,6 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { EventListService } from '../../event-list.service';
-import { Coords, marker, Event } from '../../event.models';
+import { EventE, PointE } from '../../event.models';
 import { aborNewEventAnimation } from '../../../shared/animations/event-list-animations';
 import { Subject } from 'rxjs/Subject';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -14,28 +14,21 @@ import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class UserEventListComponent implements OnInit {
   @Input() sumListEvents: number;
-  private newEventCoords: Coords;
-  private events: Event[] = [];
+  private newEventCoords: PointE;
+  private events: EventE[] = [];
   private stateNewEvent: string = "newEventBoxActive";
   private newEventBoxState: boolean = false;
   private saveInfoShow: boolean = false;
  // refresh: Subject<any> = new Subject();
- private event: Event = {
-  name: '',
-  endingTime: new Date(),
-  eventType: '',
-  startingTime: new Date()
-};
-
-  private myEventsMarker: marker[] = [
-	  {
-		  lat: 52.200049,
-		  lng: 21.016132,
-		  label: 'A',
-		  draggable: false
-	  },
-
-  ];
+ private newPoint: PointE;
+  private newEvent: EventE = {
+    name: '',
+    endingTime: null,
+    eventType: '',
+    startingTime: null,
+    point: null,
+    confirm: false
+  };
 
   constructor(private dataService: EventListService) { 
 
@@ -45,9 +38,16 @@ export class UserEventListComponent implements OnInit {
     this.dataService.getEvents()
     .subscribe(
     (events) => {
-      this.events = events;      
+      this.events = events;     
     });
-    
+    this.dataService.getNewMarkerCoordinate().subscribe(
+      (newPoint) => {
+        this.newPoint = {
+          latitude: newPoint.latitude,
+          longitude: newPoint.longitude,
+          draggable: newPoint.draggable
+        };
+      });
   }
     //this.getNewEventLocation();
     // let loadSubscription = this.sumListEvents.subscribe(
@@ -59,7 +59,7 @@ export class UserEventListComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     
     if (changes.sumListEvents.previousValue) {
-      this.dataService.showEvents(this.sumListEvents)
+      this.dataService.showEvents()
     }
   }
   ngDoCheck() {
@@ -73,43 +73,32 @@ export class UserEventListComponent implements OnInit {
     }
   }
 
-  // getNewEventLocation() {
-  //   if(this.dataService.addNewEvent != null)
-  //   {
-  //     this.newEventCoords = this.dataService.newEventCoords;
-  //     this.marker = {
-  //       lat: this.newEventCoords.lat, 
-  //       lng: this.newEventCoords.lng, 
-  //       label: 'New',
-  //       draggable: true};
-  //     this.myEventsMarker.push(this.marker);
-  //   }
-  // }
-
-
-  private abortAddingNewEvent()
-  {
+  private abortAddingNewEvent() {
     this.dataService.popNewMarker();
     this.dataService.setNewEventInEdition(false);
+    this.newPoint = {
+      latitude: null,
+      longitude: null,
+      draggable: false
+    }
   }
-  testEvent: Event = {
-    id: 6,
-    name: 'Sportowy',
-    endingTime: new Date(2005, 1, 4),
-    eventType: 'Sport',
-    startingTime: new Date(2005, 1, 4)
-  }
+  // metoda dodająca przez Usera nowy Event
+  // addEvent() {
+  //   this.dataService.addEvent(this.newEvent);
+  //   this.dataService.setNewEventInEdition(false);
+  //   this.saveInfoShow = true;  
+  // }
+  // metoda zapisująca nowy event do bazy przez Admina
   private saveNewEvent()
   {
-    // metoda dodajaca event do bazy jednak czeka on na moderacje moderatora i dopiero wtedy mozna wywolac metode addEvent()
-    // this.dataService.saveNewEvent(this.testEvent);
-    this.dataService.addEvent(this.testEvent);
+    this.newEvent.point = this.newPoint;
+    this.dataService.saveNewEvent(this.newEvent);
     this.dataService.setNewEventInEdition(false);
     this.saveInfoShow = true;
   }
   private checkStartDateIsLessThenEndDate() {
-    if (this.event.startingTime > this.event.endingTime) {
-      this.event.endingTime = this.event.startingTime;
+    if (this.newEvent.startingTime > this.newEvent.endingTime) {
+      this.newEvent.endingTime = this.newEvent.startingTime;
     }
   }
 }
