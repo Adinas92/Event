@@ -1,0 +1,30 @@
+.center-container{
+    background-color: #646464;
+    height: 90vh;
+    -webkit-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 4px 0px rgba(0,0,0,0.75);
+    float: left;
+    width: 60vw;
+}
+.left-container{
+    padding-left: 20px;
+    padding-right: 5px;
+    -webkit-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.75);
+    width: 50px;
+    float: left;
+    
+}
+.right-container{
+    height: 90vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 500px;
+    min-width: 350px;
+    -webkit-box-shadow: -1px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 0px 5px 0px rgba(0,0,0,0.75);
+    float: right;
+}
+.modal-width {
+    width: 1200px;
+}

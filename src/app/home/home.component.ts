@@ -1,93 +1,85 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventAction } from 'angular-calendar';
-import { EventListService } from './event-list.service';
-import { EventE } from '../home/event.models';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+import { Component, Input, ChangeDetectorRef, ApplicationRef  } from '@angular/core';
+import { EventListService } from './main/event-list.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ElementRef } from '@angular/core/src/linker/element_ref';
+import { EventE } from './main/event.models';
+import { NgZone } from '@angular/core/src/zone/ng_zone';
+import 'rxjs/add/observable/fromEvent';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/do';
+
+interface MenuItem {
+  path: string;
+  label: string;
+  exact?: boolean;
+}
 
 @Component({
   selector: 'em-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  title = 'tm';
+  activeMenuOnSmallDevice = '';
+  menu: MenuItem[] = [
+    {path: '/', label: 'Home', exact: true},
+    {path: '/mylist', label: 'My Events'},
+    {path: '/contact', label: 'Contact'},
+  ];
+  query = '';
+  form: FormGroup;
+  events: EventE[] = [];
+  showDropDown = false;
+  private fullImagePath = 'https://i.imgur.com/61RrTG8.png';
 
-  private isCalendarShowed: boolean = false;
-  private events: EventE[] = [];
-  private view: string = 'month';
-  private viewDate: Date = new Date();
-  private calendarEvents: CalendarEvent[] = [];
-  //public subscription: Subscription;
-  public eventChanged = new Subject<any>();
+  constructor(private el: EventListService, private fb: FormBuilder) {
+   
+    // opisanie kontrolki 
+    const queryControl = this.fb.control('', [
+      Validators.required, 
+      Validators.minLength(3)      
+    ]);
+    this.form = this.fb.group({
+      query: queryControl
+  });
+  this.form.valueChanges
+  .map(({query}) => query)
+  .do((y) => console.log(y, queryControl.errors))
+  .debounceTime(300)
+  .filter(() => this.form.valid) // filter() robi zapytanie tylko kiedy validacja jest spelniona
+  .subscribe(query => this.searchEvent((query)));
 
-  
-  constructor(private el: EventListService) {
-    
-   }
-
-  
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
+}
+                
+  activeMenu(){
+    if(this.activeMenuOnSmallDevice === '') {
+      this.activeMenuOnSmallDevice = 'is-active';
+    }
+    else{
+      this.activeMenuOnSmallDevice = '';
+    }
 
   }
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-  ngOnInit() {
-    this.el.getEvents()
-      .subscribe(
-      (events) => {
-        this.events = events;
-        this.getInterestedEvents();
-      });
+    handleClick(msg: any) {
+    console.log('CLICK', msg);
+    this.title += msg;
   }
+searchEvent (query: string) {
+  this.el.searchEvent(query)
+  .subscribe(event => this.events = event)
+}
 
-  
-  private getInterestedEvents() {
-    
-    this.calendarEvents = [];
-    this.events.forEach(eachEvent => {
-      let calendarEvent: CalendarEvent = {
-        start: subDays(startOfDay(new Date()), 1),
-        end: addDays(new Date(), 1),
-        title: eachEvent.name,
-        color: colors.red
-      }
-      //console.log(this.calendarEvents);
-      this.calendarEvents.push(calendarEvent);
-    })
-    this.calendarEvents = this.calendarEvents.slice();
-  }
-  showCalendar($event) {
-    this.isCalendarShowed = $event;
-  }
-  abortCalendar() {
-    this.isCalendarShowed = false;
-  }
-  
+toggleDropDown() {
+  this.showDropDown = true;
+
+}
+hideBoxMainSearch() {
+  if(this.showDropDown == true){
+  this.showDropDown = !this.showDropDown;
+}
+}
 }

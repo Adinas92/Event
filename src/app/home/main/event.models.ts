@@ -1,4 +1,6 @@
-import { User } from "../app.models";
+import { User } from "../../app.models";
+
+
 
 export type EventId = number | string;
 
