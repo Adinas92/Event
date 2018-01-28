@@ -7,10 +7,13 @@ import { UserEventListComponent } from './main/right-menu/user-event-list/user-e
 import { EventListComponent } from './main/right-menu/event-list/event-list.component';
 import { RightMenuComponent } from './main/right-menu/right-menu.component';
 import { HomeComponent } from './home.component';
+import { LoginComponent } from '../login/login.component';
+import { AuthGuardGuard } from '../auth-guard.guard';
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
+    canActivate: [AuthGuardGuard],
     children: [{
       path: '', component: MainComponent,
       children: [
@@ -25,7 +28,7 @@ const routes: Routes = [
     { path: 'contact', component: ContactComponent }
     ]
   },
-  
+  { path: 'login', component: LoginComponent },
   { path: '**', component: Page404Component }
 ];
 

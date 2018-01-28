@@ -9,6 +9,7 @@ import {MainModule} from './main/main.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ClickOutsideSearchBoxDirective } from './shared/click-outside-search-box.directive';
 import { HomeRoutingModule } from './home-routing.module';
+import { AuthGuardGuard } from '../auth-guard.guard';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { HomeRoutingModule } from './home-routing.module';
     ReactiveFormsModule
     
   ],
+  providers:[AuthGuardGuard],
   exports:[HomeComponent]
 })
 export class HomeModule { 

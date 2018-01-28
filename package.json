@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "@types/lodash": "^4.14.85",
+    "angular-bulma": "^0.3.1",
     "angular-calendar": "^0.22.3",
     "angular2-image-upload": "^1.0.0-rc.0",
     "bulma": "^0.6.1",
