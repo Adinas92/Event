@@ -28,7 +28,7 @@ const colors: any = {
     secondary: '#FDF1BA'
   }
 };
-
+import * as moment from 'moment';
 @Component({
   selector: 'em-main',
   templateUrl: './main.component.html',
@@ -73,12 +73,11 @@ export class MainComponent implements OnInit {
     this.calendarEvents = [];
     this.events.forEach(eachEvent => {
       let calendarEvent: CalendarEvent = {
-        start: subDays(startOfDay(new Date()), 1),
-        end: addDays(new Date(), 1),
+        start: subDays(startOfDay(moment(eachEvent.beginningDateTime, "DD-MM-YYYY hh:mm").toDate()), 0),
+        end: addDays(moment(eachEvent.endingDateTime, "DD-MM-YYYY hh:mm").toDate(), 0),
         title: eachEvent.name,
         color: colors.red
       }
-      //console.log(this.calendarEvents);
       this.calendarEvents.push(calendarEvent);
     })
     this.calendarEvents = this.calendarEvents.slice();

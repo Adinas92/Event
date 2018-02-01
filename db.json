@@ -1,45 +1,33 @@
 {
-  "events": [
-    {
-      "id": 1,
-      "name": "Event1",
-      "eventType": "CONCERT",
-      "date": "28-12-2017",
-      "startingTime": "21:30:00",
-      "endingTime": "23:00:00"
+  "events": [{
+    "name": "Biblalo Soler6",
+    "eventType": "MUZYKA",
+    "point": {
+        "longitude": 21.0020,
+        "latitude": 52.24642
+    },
+    "address": {
+        "street": "Lesna",
+        "city": "WARSZAWA",
+        "number": 99
+    },
+    "beginningDateTime": "10-02-2018 22:30",
+    "endingDateTime": "15-02-2018 23:00"
     },
     {
-      "id": 2,
-      "name": "Event2",
-      "eventType": "CONCERT",
-      "date": "28-12-2017",
-      "startingTime": "21:30:00",
-      "endingTime": "23:00:00"
-    },
-    {
-      "id": 5,
-      "name": "Sportowy",
-      "date": "2005-02-03T23:00:00.000Z",
-      "endingTime": "2005-02-03T23:00:00.000Z",
-      "eventType": "Sport",
-      "startingTime": "2005-02-03T23:00:00.000Z"
-    },
-    {
-      "id": 6,
-      "name": "Sportowy",
-      "date": "2005-02-03T23:00:00.000Z",
-      "endingTime": "2005-02-03T23:00:00.000Z",
-      "eventType": "Sport",
-      "startingTime": "2005-02-03T23:00:00.000Z"
-    },
-    {
-      "id": 7
-    },
-    {
-      "id": 8
-    },
-    {
-      "id": 9
-    }
+        "name": "Alvalo Soler6",
+        "eventType": "MUZYKA",
+        "point": {
+          "longitude": 21.9020,
+          "latitude": 52.694642
+        },
+        "address": {
+            "street": "Lesna",
+            "city": "WARSZAWA",
+            "number": 99
+        },
+        "beginningDateTime": "14-02-2018 22:30",
+        "endingDateTime": "21-02-2018 23:00"
+        }
   ]
 }

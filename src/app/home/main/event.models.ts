@@ -10,8 +10,8 @@ export interface EventE {
     eventType: string;
     point: PointE;
     address?: Address;
-    startingTime: Date;
-    endingTime: Date;
+    beginningDateTime: string;
+    endingDateTime: string;
     user?: User;
     confirm?: boolean;
     urlPicture?: string;

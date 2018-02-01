@@ -6,12 +6,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
+import * as moment from 'moment';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class EventListService {
 
   // to do zmiany tak nie powinno sie hardcodowac linku
-  private readonly baseUrl = 'http://localhost:8080/allEvents';
+  //private readonly baseUrl = 'http://localhost:8080/allEvents';
+  private readonly baseUrl = 'http://localhost:3000/events';
   private readonly saveUrl = 'http://localhost:8080/addEvent';
   private events: EventE[] = [];
   private newEventInEdition: boolean = false;
@@ -20,12 +23,13 @@ export class EventListService {
   private eventChanged = new BehaviorSubject<any>([]);
   private eventsNumberToGet: number;
   private newPoint: PointE;
-
+  private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  
   constructor(private http: HttpClient) { 
     this.refetch();
   }
   private refetch(): void {
-    this.http.get<EventE[]>(this.baseUrl)
+    this.http.get<EventE[]>(this.baseUrl, {withCredentials: true})
       .subscribe(events => {
         if(events && events instanceof Array && events.length > 0){
         this.events = events;
@@ -39,7 +43,7 @@ export class EventListService {
 
 
   showEvents(): void {
-    this.http.get<EventE[]>(this.baseUrl)
+    this.http.get<EventE[]>(this.baseUrl, {withCredentials: true})
       .subscribe(events => {
         events.forEach(event => {
           this.events.push(event);
@@ -71,10 +75,16 @@ export class EventListService {
    }
 
   saveNewEvent (event: EventE) {
-    this.http.post(this.saveUrl, event)
-    .subscribe(res => console.log(res))
+    event.beginningDateTime = moment(event.beginningDateTime).format('DD-MM-YYYY hh:mm');
+    event.endingDateTime = moment(event.endingDateTime).format('DD-MM-YYYY hh:mm');
+    this.http.post(this.saveUrl, event, {headers: this.headers, withCredentials: true, responseType: 'text'})
+    .subscribe(res => {
+      console.log(res);  
+    },
+  error => {
+    console.log(error);
+  });
   }
-
   popNewMarker(): void {
     this.myListMarkers.pop();
     this.newPointChanges.next(this.newPoint = {

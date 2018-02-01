@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   private redirect = "/";
   private userLogin: UserLogin = {
-  username: null,
+  login: null,
   password: null
   };
   constructor(private loginService:LoginAuthService, private router: Router) { }

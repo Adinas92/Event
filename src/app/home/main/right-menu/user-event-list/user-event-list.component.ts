@@ -4,7 +4,7 @@ import { EventE, PointE } from '../../event.models';
 import { aborNewEventAnimation } from '../../../shared/animations/event-list-animations';
 import { Subject } from 'rxjs/Subject';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'em-user-event-list',
@@ -23,15 +23,20 @@ export class UserEventListComponent implements OnInit {
  private newPoint: PointE;
   private newEvent: EventE = {
     name: '',
-    endingTime: null,
+    address: {
+      city: '',
+      street: '',
+      number: null
+    },
+    endingDateTime: null,
     eventType: '',
-    startingTime: null,
+    beginningDateTime: null,
     point: null,
     confirm: false
   };
 
   constructor(private dataService: EventListService) { 
-
+   
   }
 
   ngOnInit() {
@@ -97,8 +102,8 @@ export class UserEventListComponent implements OnInit {
     this.saveInfoShow = true;
   }
   private checkStartDateIsLessThenEndDate() {
-    if (this.newEvent.startingTime > this.newEvent.endingTime) {
-      this.newEvent.endingTime = this.newEvent.startingTime;
+    if (this.newEvent.beginningDateTime > this.newEvent.endingDateTime) {
+      this.newEvent.endingDateTime = this.newEvent.beginningDateTime;
     }
   }
 }

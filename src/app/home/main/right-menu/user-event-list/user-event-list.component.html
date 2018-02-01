@@ -33,7 +33,7 @@
             <div class="control has-icons-left">
               <div class="select is-small">
                 <select [(ngModel)]="newEvent.eventType" class="input-width">
-                  <option>-- Wybierz --</option>
+                    <option value="">-- Wybierz --</option>
                   <option>SZTUKA</option>
                   <option>SPORT</option>
                   <option>FITNESS</option>
@@ -58,16 +58,26 @@
       
     </div>
     <div class="columns">
+      <div class="column is-10">
+       <div class="columns">
+        <label class="column is-3 file-label label-style">Address:</label>
+        <input class="column is-4 input is-small input-padding" placeholder="City" [(ngModel)]="newEvent.address.city" name="city" type="text">
+        <input class="column is-3 input is-small input-padding" placeholder="Street" [(ngModel)]="newEvent.address.street" name="street" type="text">
+        <input class="column is-2 input is-small input-padding" placeholder="Nr" [(ngModel)]="newEvent.address.number" name="number" type="text">
+      </div>
+    </div>
+    </div>
+    <div class="columns">
         <div class="column is-6">
             <div class="columns">
             <label class="column is-4 file-label label-style">Data początkowa:</label>
-            <owl-date-time [(ngModel)]="newEvent.startingTime" (onSelect)="checkStartDateIsLessThenEndDate()" class="column is-8 owl-dateTime-input is-small"  placeHolder="Not Set" [locale]="es"></owl-date-time>
+            <owl-date-time [(ngModel)]="newEvent.beginningDateTime" (onSelect)="checkStartDateIsLessThenEndDate()" class="column is-8 owl-dateTime-input is-small"  placeHolder="Not Set" [locale]="es"></owl-date-time>
             </div>
             </div>
             <div class="column is-6">
             <div class="columns">
             <label class="column is-4 file-label label-style">Data końcowa:</label>
-            <owl-date-time [(ngModel)]="newEvent.endingTime"  class="column is-8 owl-dateTime-dialog is-small z-index" [min]="newEvent.startingTime" placeHolder="Not Set" [locale]="es"></owl-date-time>
+            <owl-date-time [(ngModel)]="newEvent.endingDateTime"  class="column is-8 owl-dateTime-dialog is-small z-index" [min]="newEvent.startingTime" placeHolder="Not Set" [locale]="es"></owl-date-time>
             </div>
           </div>
       </div>

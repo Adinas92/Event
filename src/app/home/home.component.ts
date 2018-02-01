@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, ApplicationRef  } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, ApplicationRef, OnInit  } from '@angular/core';
 import { EventListService } from './main/event-list.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ElementRef } from '@angular/core/src/linker/element_ref';
@@ -10,6 +10,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
+import { LoginAuthService } from '../login/login-auth.service';
+import { User } from '../app.models';
 
 interface MenuItem {
   path: string;
@@ -22,7 +24,7 @@ interface MenuItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   title = 'tm';
   activeMenuOnSmallDevice = '';
   menu: MenuItem[] = [
@@ -34,10 +36,13 @@ export class HomeComponent {
   form: FormGroup;
   events: EventE[] = [];
   showDropDown = false;
-  private fullImagePath = 'https://i.imgur.com/61RrTG8.png';
+  private fullImagePath = 'https://imgur.com/ZkyEpAG.png';
+  private user: User;
 
-  constructor(private el: EventListService, private fb: FormBuilder) {
+
+  constructor(private el: EventListService, private fb: FormBuilder, private loginService: LoginAuthService) {
    
+    
     // opisanie kontrolki 
     const queryControl = this.fb.control('', [
       Validators.required, 
@@ -63,7 +68,7 @@ export class HomeComponent {
       this.activeMenuOnSmallDevice = '';
     }
 
-  }
+  }  
     handleClick(msg: any) {
     console.log('CLICK', msg);
     this.title += msg;
@@ -81,5 +86,15 @@ hideBoxMainSearch() {
   if(this.showDropDown == true){
   this.showDropDown = !this.showDropDown;
 }
+}
+ngOnInit() {
+  this.loginService.loggedUser()
+  .subscribe(
+  (user) => {
+    this.user = user;     
+  });
+}
+logout() {
+ this.loginService.logout();
 }
 }

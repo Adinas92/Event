@@ -5,12 +5,12 @@
           <p class="subtitle has-text-grey">Please login to proceed.</p>
           <div class="box">
             <figure class="avatar">
-              <img src="https://i.imgur.com/61RrTG8.png">
+              <img src="https://imgur.com/ZkyEpAG.png">
             </figure>
             <form>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" type="email" placeholder="Your Email" autofocus="" name="username" [(ngModel)]="userLogin.username">
+                  <input class="input is-large" type="email" placeholder="Your Email" autofocus="" name="login" [(ngModel)]="userLogin.login">
                 </div>
               </div>
 
@@ -25,7 +25,7 @@
                   Remember me
                 </label>
               </div>
-              <a class="button is-block is-info is-large" [routerLink]="redirect" (click)="logInUser()" >Login</a>
+              <a class="button is-block is-info is-large" (click)="logInUser()" >Login</a>
             </form>
           </div>
           <p class="has-text-grey">
