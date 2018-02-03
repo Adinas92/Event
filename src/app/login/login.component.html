@@ -25,13 +25,16 @@
                   Remember me
                 </label>
               </div>
-              <a class="button is-block is-info is-large" (click)="logInUser()" >Login</a>
+              <a class="button is-block is-info is-large" (click)="logInUser()" [class.is-loading]="isLoading" >Login</a>
             </form>
           </div>
+          <p >
+            <h4 *ngIf="wrongUserNameOrPassword" style="color:rgb(177, 10, 10)">Wrong username or password.</h4>
+          
           <p class="has-text-grey">
-            <a href="../">Sign Up</a> &nbsp;·&nbsp;
-            <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-            <a href="../">Need Help?</a>
+            <a routerLink="/register">Sign Up</a>
+            <!-- <a href="../">Forgot Password</a> &nbsp;·&nbsp;
+            <a href="../">Need Help?</a> -->
           </p>
         </div>
       </div>

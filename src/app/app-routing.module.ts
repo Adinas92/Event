@@ -7,6 +7,7 @@ import { MainComponent } from './home/main/main.component';
 import { RightMenuComponent } from './home/main/right-menu/right-menu.component';
 import { EventListComponent } from './home/main/right-menu/event-list/event-list.component';
 import { UserEventListComponent } from './home/main/right-menu/user-event-list/user-event-list.component';
+import { RegisterComponent } from './login/register/register.component';
 
 const routes: Routes = [
     {
@@ -25,7 +26,7 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent }
       ]
     },
-    
+    { path: 'register', component: RegisterComponent },
     { path: '**', component: Page404Component }
   ];
 

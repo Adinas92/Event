@@ -1,6 +1,6 @@
 <div class="columns is-multiline padding-menu">
     <div class="column is-12 notification is-warning" *ngIf="saveInfoShow">
-        <button class="delete"></button>
+        <button class="delete" (click)="hideNotify()"></button>
         Wydarzenie czeka na zatwierdzenie przez moderatora.
       </div>
   <div class="column is-12 style-for-box" [@aborNewEventAnimation]='stateNewEvent'>
@@ -71,13 +71,13 @@
         <div class="column is-6">
             <div class="columns">
             <label class="column is-4 file-label label-style">Data początkowa:</label>
-            <owl-date-time [(ngModel)]="newEvent.beginningDateTime" (onSelect)="checkStartDateIsLessThenEndDate()" class="column is-8 owl-dateTime-input is-small"  placeHolder="Not Set" [locale]="es"></owl-date-time>
+            <owl-date-time [(ngModel)]="newEvent.beginningDateTime" (onSelect)="checkStartDateIsLessThenEndDate()" [min]="currentDay" class="column is-8 owl-dateTime-input is-small"  placeHolder="Not Set" [locale]="es"></owl-date-time>
             </div>
             </div>
             <div class="column is-6">
             <div class="columns">
             <label class="column is-4 file-label label-style">Data końcowa:</label>
-            <owl-date-time [(ngModel)]="newEvent.endingDateTime"  class="column is-8 owl-dateTime-dialog is-small z-index" [min]="newEvent.startingTime" placeHolder="Not Set" [locale]="es"></owl-date-time>
+            <owl-date-time [(ngModel)]="newEvent.endingDateTime"  class="column is-8 owl-dateTime-dialog is-small z-index" [min]="newEvent.beginningDateTime" placeHolder="Not Set" [locale]="es"></owl-date-time>
             </div>
           </div>
       </div>

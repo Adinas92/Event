@@ -23,12 +23,6 @@ export interface EventE {
     events?: Array<EventE>;
     draggable?: boolean;
   }
-//  export interface marker {
-//     lat: number;
-//     lng: number;
-//     label?: string;
-//     draggable: boolean;
-//   }
 
 export interface Address {
   id?: Number;
@@ -37,7 +31,3 @@ export interface Address {
   number: Number;
   events?: Array<EventE>;
 }
-  // export interface Coords {
-  //   lat: number;
-  //   lng: number;
-  // }

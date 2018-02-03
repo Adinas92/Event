@@ -41,10 +41,8 @@ export class MainComponent implements OnInit {
   private view: string = 'month';
   private viewDate: Date = new Date();
   private calendarEvents: CalendarEvent[] = [];
-  //public subscription: Subscription;
   public eventChanged = new Subject<any>();
 
-  
   constructor(private el: EventListService) {
     
    }

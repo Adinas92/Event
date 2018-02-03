@@ -13,9 +13,9 @@ import { HttpHeaders } from '@angular/common/http';
 export class EventListService {
 
   // to do zmiany tak nie powinno sie hardcodowac linku
-  //private readonly baseUrl = 'http://localhost:8080/allEvents';
-  private readonly baseUrl = 'http://localhost:3000/events';
-  private readonly saveUrl = 'http://localhost:8080/addEvent';
+  private readonly baseUrl = 'http://145.239.87.108:8080/allEvents';
+  //private readonly baseUrl = 'http://localhost:3000/events';
+  private readonly saveUrl = 'http://145.239.87.108:8080/addEvent';
   private events: EventE[] = [];
   private newEventInEdition: boolean = false;
   private myListMarkers: PointE[] = [];
@@ -52,7 +52,6 @@ export class EventListService {
       });   
   }
 
-  // tworzymy metode ktora będzie strumieniem (czyli bedzie mozna z niej subskrybowac)
   searchEvent(query: string): Observable<EventE[]> {
     const url = `${this.baseUrl}/search/event?q=${query}`;
     return this.http.get<EventE[]>(url)
@@ -67,9 +66,7 @@ export class EventListService {
     });
     this.newPointChanges.next(this.newPoint);
   }
-  // getMarkers(): Observable<PointE[]> {
-  //   return Observable.of(this.myListMarkers);
-  // }
+
   getNewMarkerCoordinate(): Observable<any> {
     return this.newPointChanges.asObservable();
    }

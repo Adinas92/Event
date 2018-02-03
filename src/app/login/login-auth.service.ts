@@ -12,45 +12,49 @@ import { Router } from '@angular/router';
 @Injectable()
 export class LoginAuthService {
 
-  private readonly loginUserUrl = 'http://localhost:8080/logUser';
-  private readonly logoutUserUrl = 'http://localhost:8080/logoutUser';
-  private readonly loggedUserUrl = 'http://localhost:8080/loggedUser';
+  private readonly loginUserUrl = 'http://145.239.87.108:8080/logUser';
+  private readonly logoutUserUrl = 'http://145.239.87.108:8080/logoutUser';
+  private readonly loggedUserUrl = 'http://145.239.87.108:8080/loggedUser';
+
   private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  //private headers2 = new HttpHeaders().set('Content-Type', 'text/plain;');
   private response = new BehaviorSubject<any>([]);
   private isValidUser: boolean;
-  private user: User;
+  private user: string;
   constructor(private http: HttpClient, private routerService:Router) {
 
    }
 
 
   loginUser(userLogin: UserLogin) {
-     this.http.post(this.loginUserUrl, userLogin, {headers: this.headers, withCredentials: true, responseType: 'text'})
-      .subscribe(res => {
+     this.http.post(this.loginUserUrl, userLogin, {headers: this.headers, withCredentials: true, responseType: 'text'})  
+       .subscribe(res => {
         this.isValidUser = true;
         this.response.next(true);
+        this.getLoggedUser();
       },
     error => {
-      this.isValidUser = true;
-      this.response.next(true);
-
-    });
-    this.http.get<User>(this.loggedUserUrl, {withCredentials: true})
-      .subscribe(user => {
-        this.user = user;
-         this.response.next(user);
-        }
-      );
+      this.isValidUser = false;
+      this.response.next(false);
+    });   
     };
-  
+  getLoggedUser() {
+    this.http.get(this.loggedUserUrl, { withCredentials: true, responseType:'text'})
+    .subscribe(user => {
+      this.response.next(user);
+      }
+    );
+  }
   logout() {
-    this.http.get(this.logoutUserUrl, {withCredentials: true})
+    this.http.get(this.logoutUserUrl, {withCredentials: true, responseType:'text'})
     .subscribe(res => {
       console.log(res);
+      this.response.next(false);
       this.routerService.navigateByUrl('/login');
       },
       error => {
         console.log(error);
+        this.response.next(false);
         this.routerService.navigateByUrl('/login');
       })
     }; 
@@ -58,7 +62,7 @@ export class LoginAuthService {
   isValid(): Observable<boolean> {
     return this.response.asObservable();
   }
-  loggedUser(): Observable<User> {
+  loggedUser(): Observable<string> {
     return this.response.asObservable();
   }
  getIsValidUser(): boolean {

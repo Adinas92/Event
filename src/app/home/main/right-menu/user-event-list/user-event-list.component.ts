@@ -19,6 +19,7 @@ export class UserEventListComponent implements OnInit {
   private stateNewEvent: string = "newEventBoxActive";
   private newEventBoxState: boolean = false;
   private saveInfoShow: boolean = false;
+  private currentDay: Date = new Date();
  // refresh: Subject<any> = new Subject();
  private newPoint: PointE;
   private newEvent: EventE = {
@@ -105,5 +106,8 @@ export class UserEventListComponent implements OnInit {
     if (this.newEvent.beginningDateTime > this.newEvent.endingDateTime) {
       this.newEvent.endingDateTime = this.newEvent.beginningDateTime;
     }
+  }
+  hideNotify() {
+    this.saveInfoShow = false;
   }
 }

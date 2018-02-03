@@ -1,8 +1,16 @@
-lalalala
-<div class="columns is-multiline padding-menu">
-  <div class="column is-12" *ngFor="let event of events">
+<div class="column is-12 is-multiline padding-menu">
+  <div class="event-notify-box" *ngFor="let event of events">
+    <div class="columns">
+      <div class="column is-2">
+        <figure class="image is-48x48">
+          <img src="https://bulma.io/images/placeholders/48x48.png">
+        </figure></div>
     <div class="column is-4"><h2 style="color:white">{{event.name}}</h2></div>
-    <div class="column is-8">{{event.date}}</div>
+    <div class="column is-6 has-text-right">{{event.beginningDateTime}}</div>
+  </div>
+    <div class="column is-12">
+      <h4>Address: {{event.address.city}} {{event.address.street}} {{event.address.number}}</h4>
+    </div>
   </div>
 </div>
   

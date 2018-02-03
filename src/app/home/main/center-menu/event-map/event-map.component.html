@@ -9,9 +9,18 @@
     
     <div *ngIf="router.url === '/'">        
         <agm-marker *ngFor="let marker of events" [latitude]="marker.point.latitude" [longitude]="marker.point.longitude" [markerDraggable]="marker.point.draggable">
-            <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <agm-snazzy-info-window [maxWidth]="500" [padding]="5" [closeWhenOthersOpen]="true">
                 <ng-template>
-                    My first Snazzy Info Window!
+                         <div class="columns">
+                       <div class="column is-4">
+                            <figure class="image is-32-32">
+                                    <img src="https://bulma.io/images/placeholders/32x32.png">
+                                  </figure>
+                       </div>
+                       <div class="column is-8">
+                            <h2 style="color:rgb(0, 0, 0)">{{marker.name}}</h2>
+                       </div>
+                   </div>                  
                 </ng-template>
             </agm-snazzy-info-window>
         </agm-marker>
@@ -20,15 +29,23 @@
         <agm-marker [latitude]="newPoint.latitude" [longitude]="newPoint.longitude" [markerDraggable]="newPoint.draggable">
             <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
                 <ng-template>
-                    My first Snazzy Info Window!
+                    Here will be your point of your event.
                 </ng-template>
             </agm-snazzy-info-window>
         </agm-marker>
-        <agm-marker *ngFor="let marker of myEvents" [latitude]="marker.point.latitude" [longitude]="marker.point.longitute" [markerDraggable]="marker.draggable"
-            >
+        <agm-marker *ngFor="let marker of myEvents" [latitude]="marker.point.latitude" [longitude]="marker.point.longitute" [markerDraggable]="marker.draggable">
             <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
                 <ng-template>
-                    My first Snazzy Info Window!
+                        <div class="columns">
+                                <div class="column is-4">
+                                     <figure class="image is-32-32">
+                                             <img src="https://bulma.io/images/placeholders/32x32.png">
+                                           </figure>
+                                </div>
+                                <div class="column is-8">
+                                     <h2 style="color:rgb(0, 0, 0)">{{marker.name}}</h2>
+                                </div>
+                            </div>         
                 </ng-template>
             </agm-snazzy-info-window>
         </agm-marker>

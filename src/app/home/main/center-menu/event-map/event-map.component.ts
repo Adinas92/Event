@@ -212,23 +212,7 @@ export class EventMapComponent implements OnInit
       ]
     }
   ];
-  // markers: PointE[] = [
-  //   {
-  //     latitude: 52.220049,
-  //     longitute: 21.016132,
-  //     draggable: true
-  //   },
-  //   {
-  //     latitude: 52.237049,
-  //     longitute: 21.035532,
-  //     draggable: false
-  //   },
-  //   {
-  //     latitude: 52.237049,
-  //     longitute: 21.007532,
-  //     draggable: true
-  //   }
-  // ];
+
   constructor(private router: Router, private dataService: EventListService) {
   }
 
@@ -240,22 +224,13 @@ export class EventMapComponent implements OnInit
       this.windowForNewEvent = true;
       this.latNewMarker = $event.coords.lat;
       this.lngNewMarker = $event.coords.lng;
-      // this.newPoint = { 
-      //   latitude: $event.coords.lat,
-      //   longitude: $event.coords.lng,
-      //   draggable: true
-      // }
-    }
-    
+    }   
   };
   
-
-
-  // przekazuje dodawanie do servisu poniewaz potem chce przekazac wartosc do innego komponentu ktory bedzie zapisywal wszystkie dane o event (przekazywal do serwera)
   addNewEvent() {   
     this.windowForNewEvent = false;
     this.dataService.addNewPoint(this.latNewMarker, this.lngNewMarker);
-    this.dataService.setNewEventInEdition(true); // przekazanie info do servicu ze dodawanie kolejnego eventu jest zajęte
+    this.dataService.setNewEventInEdition(true); 
     if (this.router.url != "/mylist") {
       this.router.navigateByUrl('/mylist');
     }
@@ -282,7 +257,6 @@ export class EventMapComponent implements OnInit
       }
     }
   ngDoCheck() {
-    // this.myEventsMarkers = this.dataService.getListOfMyEventsMarkers();
     this.isNewEventInEdition = this.dataService.getNewEventInEdition();
   }
   changeAddNextEventStatus($event) {

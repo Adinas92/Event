@@ -1,0 +1,40 @@
+<section class="hero is-success is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-4 is-offset-4">
+          <p class="subtitle has-text-grey">User registration.</p>
+          <div class="box">
+            <form>
+              <div class="field">
+                <div class="control">
+                  <h5>Username</h5>
+                  <input class="input" type="text" placeholder="Your username" autofocus="" name="login" [(ngModel)]="newUser.firstName">
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                    <h5>Lastname</h5>
+                  <input class="input" type="text" placeholder="Your lastname" name="password" [(ngModel)]="newUser.lastName">
+                </div>
+              </div>
+              <div class="field">
+                  <div class="control">
+                    <h5>Email</h5>
+                    <input class="input" type="email" placeholder="Your email" autofocus="" name="login" [(ngModel)]="newUser.email">
+                  </div>
+                </div>
+  
+                <div class="field">
+                  <div class="control">
+                      <h5>Password</h5>
+                    <input class="input" type="password" placeholder="Password" name="password" [(ngModel)]="newUser.password">
+                  </div>
+                </div>
+              <a class="button is-block is-success is-small" (click)="registerUser()" [class.is-loading]="isLoading" >Register</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

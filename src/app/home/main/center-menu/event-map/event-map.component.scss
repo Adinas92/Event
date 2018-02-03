@@ -1,4 +1,13 @@
+
 agm-map {
     height: 99%;
 
+  }
+
+
+  ::ng-deep .si-content {
+    overflow: hidden;
+  }
+  ::ng-deep .si-content-wrapper {
+    padding: 20px;
   }

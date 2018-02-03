@@ -21,7 +21,7 @@ export class EventListComponent implements OnInit {
     this.dataService.getEvents().subscribe(
       (events) => {
         this.events = events;
-        //console.log(events[0].name);
+        console.log(events);
       }
     )};
     ngOnChanges(changes: SimpleChanges) {

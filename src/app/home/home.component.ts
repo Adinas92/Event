@@ -37,13 +37,11 @@ export class HomeComponent implements OnInit {
   events: EventE[] = [];
   showDropDown = false;
   private fullImagePath = 'https://imgur.com/ZkyEpAG.png';
-  private user: User;
+  private user: string;
 
 
   constructor(private el: EventListService, private fb: FormBuilder, private loginService: LoginAuthService) {
    
-    
-    // opisanie kontrolki 
     const queryControl = this.fb.control('', [
       Validators.required, 
       Validators.minLength(3)      
@@ -55,7 +53,7 @@ export class HomeComponent implements OnInit {
   .map(({query}) => query)
   .do((y) => console.log(y, queryControl.errors))
   .debounceTime(300)
-  .filter(() => this.form.valid) // filter() robi zapytanie tylko kiedy validacja jest spelniona
+  .filter(() => this.form.valid) 
   .subscribe(query => this.searchEvent((query)));
 
 }
