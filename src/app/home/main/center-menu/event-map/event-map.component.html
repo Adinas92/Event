@@ -1,12 +1,25 @@
 <agm-map [latitude]="lat" [longitude]="lng" [styles]="style" [scrollwheel]="true" [maxZoom]="14" [minZoom]="6" [zoom]="12"
-    (mapRightClick)="showPropertyAboutNewEvent($event)">
+    (mapRightClick)="showPropertyAboutNewEvent($event)" (boundsChange)="boundsChange($event)">
     <agm-snazzy-info-window [latitude]="latNewMarker" [isOpen]="windowForNewEvent" [longitude]="lngNewMarker" (afterClose)="changeAddNextEventStatus($event)" >
         <ng-template>
             <h3>Dodaj nowy event</h3>
             <button id="btnAddEvent" (click)="addNewEvent()">Dodaj</button>
         </ng-template>
     </agm-snazzy-info-window>
-    
+    <agm-marker [latitude]="52.28453995060692" [longitude]="21.16584742968746" >
+        <agm-snazzy-info-window [maxWidth]="500" [padding]="5" [closeWhenOthersOpen]="true">
+            <ng-template>
+                     Północny - Zachód      
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
+    <agm-marker [latitude]="52.222960049448446" [longitude]="20.86921657031246" >
+        <agm-snazzy-info-window [maxWidth]="500" [padding]="5" [closeWhenOthersOpen]="true">
+            <ng-template>
+                     Południowy -  Wschód   
+            </ng-template>
+        </agm-snazzy-info-window>
+    </agm-marker>
     <div *ngIf="router.url === '/'">        
         <agm-marker *ngFor="let marker of events" [latitude]="marker.point.latitude" [longitude]="marker.point.longitude" [markerDraggable]="marker.point.draggable">
             <agm-snazzy-info-window [maxWidth]="500" [padding]="5" [closeWhenOthersOpen]="true">

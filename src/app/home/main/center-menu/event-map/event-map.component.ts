@@ -4,6 +4,8 @@ import { MouseEvent as AGMMouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 import { EventListService } from '../../event-list.service';
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 
 @Component({
@@ -26,6 +28,8 @@ export class EventMapComponent implements OnInit
     longitude: null,
     draggable: false
   };
+  private leftUpMapCorner: PointE;
+  private rightBottomMapCorner: PointE;
   style = [
     {
       "elementType": "geometry",
@@ -262,4 +266,17 @@ export class EventMapComponent implements OnInit
   changeAddNextEventStatus($event) {
     this.isNewEventInEdition = this.dataService.getNewEventInEdition();
   }
+  boundsChange($event) {
+    this.leftUpMapCorner = {
+      latitude: $event.getNorthEast().lat(),
+      longitude: $event.getNorthEast().lng()
+    }
+    console.log(this.leftUpMapCorner);
+    this.rightBottomMapCorner = {
+      latitude: $event.getSouthWest().lat(),
+      longitude: $event.getSouthWest().lng()
+    }
+    this.dataService.setNewCorners(this.leftUpMapCorner, this.rightBottomMapCorner);
+  }
+
 }

@@ -16,7 +16,17 @@
                     <div *ngIf='showDropDown' class="state-container-dropdown">
                     <div *ngFor="let event of events">
                       <div class="founded-event">
-                        <p>{{event.name}}</p>
+                      <div class=" column is-12">
+                        <div class="columns event-box">
+                          <div class="column is-2">
+                            <figure class="image is-32-32">
+                              <img src="https://bulma.io/images/placeholders/32x32.png">
+                            </figure>
+                          </div>
+                          <div class="column is-6">{{event.name}}</div>
+                          <div class="column is-4" style="font-size:8px">{{event.beginningDateTime}}</div>
+                        </div>
+                      </div>
                       </div>
                     </div>
                   </div>

@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectorRef, ApplicationRef, OnInit  } from '@a
 import { EventListService } from './main/event-list.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ElementRef } from '@angular/core/src/linker/element_ref';
-import { EventE } from './main/event.models';
+import { EventE, EventSearching } from './main/event.models';
 import { NgZone } from '@angular/core/src/zone/ng_zone';
 import 'rxjs/add/observable/fromEvent';
 import {Observable} from 'rxjs/Observable';
@@ -38,7 +38,8 @@ export class HomeComponent implements OnInit {
   showDropDown = false;
   private fullImagePath = 'https://imgur.com/ZkyEpAG.png';
   private user: string;
-
+  private foundedEvents: EventE[];
+  
 
   constructor(private el: EventListService, private fb: FormBuilder, private loginService: LoginAuthService) {
    
@@ -54,8 +55,7 @@ export class HomeComponent implements OnInit {
   .do((y) => console.log(y, queryControl.errors))
   .debounceTime(300)
   .filter(() => this.form.valid) 
-  .subscribe(query => this.searchEvent((query)));
-
+  .subscribe(queryName => this.searchEvent((queryName)));
 }
                 
   activeMenu(){
@@ -71,9 +71,11 @@ export class HomeComponent implements OnInit {
     console.log('CLICK', msg);
     this.title += msg;
   }
-searchEvent (query: string) {
-  this.el.searchEvent(query)
-  .subscribe(event => this.events = event)
+searchEvent (searchingEvents: string) {
+  this.el.searchEvent(searchingEvents)
+  .subscribe(event => {
+    console.log(event)
+    this.events = event})
 }
 
 toggleDropDown() {

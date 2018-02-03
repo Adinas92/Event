@@ -31,3 +31,11 @@ export interface Address {
   number: Number;
   events?: Array<EventE>;
 }
+
+export interface EventSearching {
+  name?: string;
+  eventType?: string;
+  date?: Date;
+  point1?: PointE;
+  point2?: PointE;
+}
